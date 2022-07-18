@@ -1,0 +1,18 @@
+{
+  "name": "video-moderation",
+  "description": "Moderate video content and make approved video public. Rejected video is moved to a folder is not made public.",
+  "private": true,
+  "scripts": {
+    "dev": "netlify dev",
+    "test": "netlify functions:invoke"
+  },
+  "dependencies": {
+    "cloudinary": "^1.28.1",
+    "dotenv": "^16.0.0",
+    "netlify-cli": "^9.6.4"
+  },
+  "devDependencies": {
+    "eslint": "8.8.0",
+    "eslint-config-next": "12.0.9"
+  }
+}
