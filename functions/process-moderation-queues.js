@@ -59,17 +59,22 @@ exports.handler = async function (event, context) {
             }),
         };
     }
+    console.log("it's a post")
 
     try {
         const approvedAssets = getModerationQueue('approved');
+        console.log(JSON.stringify(approvedAssets,null,2))
         approvedAssets.forEach(asset => {
+            console.log('approved', JSON.stringify(asset,null,2))
             moveToFolder('approved', asset.public_id)
         })
         const rejectedAssets = getModerationQueue('rejected');
-        approvedAssets.forEach(asset => {
+        console.log(JSON.stringify(rejectedAssets,null,2))
+        rejectedAssets.forEach(asset => {
+            console.log('rejected', JSON.stringify(asset,null,2))
             moveToFolder('rejected', asset.public_id)
         })
-
+        console.log("ready to return")
         return {
             statusCode: 200,
             body: JSON.stringify({
