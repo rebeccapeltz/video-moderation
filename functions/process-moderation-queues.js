@@ -79,13 +79,13 @@ exports.handler = async function (event, context) {
   try {
     const approvedAssets = await getModerationQueue('approved');
     console.log(JSON.stringify(approvedAssets, null, 2));
-    approvedAssets.forEach((asset) => {
+    approvedAssets.resources.forEach((asset) => {
       console.log('approved', JSON.stringify(asset, null, 2));
       moveToFolder('approved', asset.public_id);
     });
     const rejectedAssets = await getModerationQueue('rejected');
     console.log(JSON.stringify(rejectedAssets, null, 2));
-    rejectedAssets.forEach((asset) => {
+    rejectedAssets.resources.forEach((asset) => {
       console.log('rejected', JSON.stringify(asset, null, 2));
       moveToFolder('rejected', asset.public_id);
     });
