@@ -77,17 +77,19 @@ exports.handler = async function (event, context) {
   console.log("it's a post");
 
   try {
+    // process approved
     const approvedAssets = await getModerationQueue('approved');
     console.log(JSON.stringify(approvedAssets, null, 2));
     approvedAssets.resources.forEach((asset) => {
       console.log('approved', JSON.stringify(asset, null, 2));
-      moveToFolder('approved', asset.public_id);
+      makePublic(asset.public_id);
     });
+    // process rejected
     const rejectedAssets = await getModerationQueue('rejected');
     console.log(JSON.stringify(rejectedAssets, null, 2));
     rejectedAssets.resources.forEach((asset) => {
       console.log('rejected', JSON.stringify(asset, null, 2));
-      moveToFolder('rejected', asset.public_id);
+      destroyVideo(asset.public_id);
     });
     console.log('ready to return');
     return {
