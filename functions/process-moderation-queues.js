@@ -26,7 +26,7 @@ async function getModerationQueue(status) {
 async function destroyVideo(public_id) {
   console.log('in destroy video', public_id);
   try {
-    const destroyResponse = cloudinary.uploader.destroy(public_id, {
+    const destroyResponse = await cloudinary.uploader.destroy(public_id, {
       invalidate: true,
       resource_type: 'video',
     });
