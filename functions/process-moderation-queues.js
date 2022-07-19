@@ -83,12 +83,12 @@ exports.handler = async function (event, context) {
 
   try {
     // process approved
-    const approvedAssets = await getModerationQueue('approved');
-    console.log(JSON.stringify(approvedAssets, null, 2));
-    approvedAssets.resources.forEach((asset) => {
-      console.log('approved', JSON.stringify(asset, null, 2));
-      makePublic(asset.public_id);
-    });
+    // const approvedAssets = await getModerationQueue('approved');
+    // console.log(JSON.stringify(approvedAssets, null, 2));
+    // approvedAssets.resources.forEach((asset) => {
+    //   console.log('approved', JSON.stringify(asset, null, 2));
+    //   makePublic(asset.public_id);
+    // });
     // process rejected
     const rejectedAssets = await getModerationQueue('rejected');
     console.log(JSON.stringify(rejectedAssets, null, 2));

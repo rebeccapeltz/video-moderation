@@ -21,10 +21,10 @@ async function getModerationQueue(status) {
 }
 
 // destroy rejected videos
-async function destroyVideo(public_id) {
-  console.log('in destroy video', public_id);
+async function destroyVideo(publicId) {
+  console.log('in destroy video', publicId);
   try {
-    const destroyResponse = await cloudinary.uploader.destroy(public_id, {
+    const destroyResponse = await cloudinary.uploader.destroy(publicId, {
       invalidate: true,
       resource_type: 'video',
     });
@@ -61,17 +61,18 @@ const makePublic = async (publicId) => {
 async function doit() {
   try {
     // make approved public and move to 'approved' folder
-    // const approvedAssets = await getModerationQueue('approved');
-    // console.log('approved assets', JSON.stringify(approvedAssets, null, 2));
-    // approvedAssets.resources.forEach((asset) => {
-    //   makePublic(asset.public_id);
-    // });
+    const approvedAssets = await getModerationQueue('approved');
+    console.log('approved assets', JSON.stringify(approvedAssets, null, 2));
+    for (const asset of approvedAssets.resources){
+      makePublic(asset.public_id);
+
+    }
     // delete rejected
     const rejectedAssets = await getModerationQueue('rejected');
     console.log('rejected assets', JSON.stringify(rejectedAssets, null, 2));
-    rejectedAssets.resources.forEach((asset) => {
+    for (const asset of rejectedAssets.resources) {
       destroyVideo(asset.public_id);
-    });
+    }
     return {
       statusCode: 200,
       body: JSON.stringify({
