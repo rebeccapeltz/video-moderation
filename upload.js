@@ -25,11 +25,15 @@ async function uploadVideo(filepath) {
  * expect reject
  */
 
-// uploadVideo('./assets/hot-tub.mp4')
-//   .then(result => {
-//     console.log(result)
-//   })
-//   .catch(error => console.log(error))
+uploadVideo('./assets/hot-tub.mp4')
+  .then(result => {
+    console.log(result)
+  })
+  .catch(error => console.log(error))
+
+/***
+ * expect accept
+ */
 
 uploadVideo('./assets/surf.mp4')
   .then(result => {
