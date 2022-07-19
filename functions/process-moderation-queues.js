@@ -47,18 +47,23 @@ async function destroyVideo(public_id) {
  * approved video will be made publicly available
  */
 
- const makePublic = async (publicId) => {
-    let newPublicId = `approved/${publicId}`;
-    let options = { resource_type: 'video', invalidate: 'true', type:'authenticated',to_type: 'upload' };
-    
-    try {
-      return await cloudinary.uploader.rename(publicId, newPublicId, options);
-    } catch {
-      (error) => {
-        return error;
-      };
-    }
+const makePublic = async (publicId) => {
+  let newPublicId = `approved/${publicId}`;
+  let options = {
+    resource_type: 'video',
+    invalidate: 'true',
+    type: 'authenticated',
+    to_type: 'upload',
   };
+
+  try {
+    return await cloudinary.uploader.rename(publicId, newPublicId, options);
+  } catch {
+    (error) => {
+      return error;
+    };
+  }
+};
 
 exports.handler = async function (event, context) {
   // exit if not a post
@@ -94,8 +99,12 @@ exports.handler = async function (event, context) {
     console.log('ready to return');
     return {
       statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
       body: JSON.stringify({
-        message: 'Google Moderation Q processing complete',
+        message: 'Google Moderation Q processing complete'
       }),
     };
   } catch (error) {
@@ -103,7 +112,7 @@ exports.handler = async function (event, context) {
 
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'error processing Google Moderation Q' }),
+      body: JSON.stringify({ error: 'error processing Google Moderation Q'}),
     };
   }
 };
